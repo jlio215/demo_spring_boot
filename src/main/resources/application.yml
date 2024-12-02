@@ -1,0 +1,6 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://admincheck:iLVIMaiaHjspLgwy@cluster0.8a4gy.mongodb.net/franquicias
+  application:
+    name: franquicias-app
