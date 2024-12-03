@@ -29,6 +29,14 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
 
+    public Producto updateProductoNombre(String id, String nuevoNombre) {
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));
+        producto.setNombre(nuevoNombre);
+        return productoRepository.save(producto);
+    }
+    
+
     // Actualizar un producto
     public Producto updateProducto(String id, Producto updatedProducto) {
         Producto producto = productoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Producto no encontrado"));

@@ -38,4 +38,10 @@ public class SucursalController {
     public void deleteSucursal(@PathVariable String id) {
         sucursalService.deleteSucursal(id);
     }
+
+    @PutMapping("/{id}/nombre")
+public Sucursal updateSucursalNombre(@PathVariable String id, @RequestParam String nuevoNombre) {
+    return sucursalService.updateSucursalNombre(id, nuevoNombre);
+}
+
 }

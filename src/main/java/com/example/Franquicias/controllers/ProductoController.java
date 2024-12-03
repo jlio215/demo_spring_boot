@@ -37,4 +37,10 @@ public class ProductoController {
     public void deleteProducto(@PathVariable String id) {
         productoService.deleteProducto(id);
     }
+
+    @PutMapping("/{id}/nombre")
+public Producto updateProductoNombre(@PathVariable String id, @RequestParam String nuevoNombre) {
+    return productoService.updateProductoNombre(id, nuevoNombre);
+}
+
 }

@@ -1,13 +1,14 @@
 package com.example.Franquicias.services;
 
 import com.example.Franquicias.models.Franquicia;
+import com.example.Franquicias.models.Producto;
 import com.example.Franquicias.models.Sucursal;
 import com.example.Franquicias.repositories.FranquiciaRepository;
 import com.example.Franquicias.repositories.SucursalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class FranquiciaService {
@@ -55,10 +56,36 @@ public class FranquiciaService {
         return franquiciaRepository.save(franquicia);
     }
 
+    // Actualizar el nombre de una franquicia
+    public Franquicia updateFranquiciaNombre(String id, String nuevoNombre) {
+        Franquicia franquicia = getFranquiciaById(id);
+        franquicia.setNombre(nuevoNombre);
+        return franquiciaRepository.save(franquicia);
+    }
+
     // Eliminar una franquicia
     public void deleteFranquicia(String id) {
         franquiciaRepository.deleteById(id);
     }
 
-    
+    // Obtener el producto con más stock por sucursal para una franquicia
+    public List<Map<String, Object>> getProductosMasStockPorSucursal(String franquiciaId) {
+        Franquicia franquicia = getFranquiciaById(franquiciaId);
+
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        for (Sucursal sucursal : franquicia.getSucursales()) {
+            Map<String, Object> sucursalMap = new HashMap<>();
+            sucursalMap.put("sucursal", sucursal.getNombre());
+
+            Producto productoConMasStock = sucursal.getProductos().stream()
+                    .max(Comparator.comparingInt(Producto::getStock))
+                    .orElse(null);
+
+            sucursalMap.put("producto", productoConMasStock);
+            result.add(sucursalMap);
+        }
+
+        return result;
+    }
 }

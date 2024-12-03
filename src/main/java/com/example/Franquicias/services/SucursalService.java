@@ -26,6 +26,13 @@ public class SucursalService {
         return sucursalRepository.findByFranquiciaId(franquiciaId);
     }
 
+    public Sucursal updateSucursalNombre(String id, String nuevoNombre) {
+        Sucursal sucursal = getSucursalById(id);
+        sucursal.setNombre(nuevoNombre);
+        return sucursalRepository.save(sucursal);
+    }
+    
+
     // Obtener sucursal por ID
     public Sucursal getSucursalById(String id) {
         return sucursalRepository.findById(id)
